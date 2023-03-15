@@ -17,4 +17,18 @@
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
     </article>
+    <div>
+        <h2>Comments under post:</h2>
+        {% for comment in comments %}
+            {{comment.text}}
+            <br>
+        {% endfor %}
+    </div>
+    <div>
+        <h2>New Comment</h2>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ xform.as_p }}
+            <button type="submit" class="save btn btn-secondary">Save</button>
+        </form>
+    </div>
 {% endblock %}
