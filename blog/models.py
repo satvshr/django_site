@@ -22,7 +22,7 @@ class Comment(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     published_date = models.DateTimeField(blank=True, null=True)
-
+    index = models.IntegerField(default=0)
     def publish(self):
         self.published_date = timezone.now()
         self.save()

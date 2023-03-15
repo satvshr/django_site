@@ -43,7 +43,7 @@ def post_edit(request, pk):
 
 def comment_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = Comment.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    comments = Comment.objects.filter(published_date__lte=timezone.now(), index=post.pk).order_by('published_date')
     if request.method == "POST":
         cform = CommentForm(request.POST)
         if cform.is_valid():
@@ -51,6 +51,7 @@ def comment_post(request, pk):
             comment.post = post
             comment.author = request.user
             comment.published_date = timezone.now()
+            comment.index = post.pk
             comment.save()
             return redirect('post_detail', pk=post.pk)
     else:
